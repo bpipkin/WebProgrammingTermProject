@@ -1,23 +1,7 @@
-Skip to content
- This repository
-Explore
-Gist
-Blog
-Help
-@killazilla54 killazilla54
- 
- Watch 8
-  Star 32
-  Fork 37
-plamere/en-demos
- branch: master  en-demos/live/live.html
-@plamereplamere on Jun 16, 2014 Updated Spotify ID space
-1 contributor
-RawBlameHistory     104 lines (90 sloc)  3.632 kb
 <!DOCTYPE html>
 <html>
   <head>
-    <title>We are doing it live!</title>
+    <title>The Ham Sandwiches</title>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
     <script type="text/javascript" src="../common/get_key_with_callback.js"></script>
     <link type="text/css" href="live_styles.css" rel="stylesheet" />
@@ -25,7 +9,7 @@ RawBlameHistory     104 lines (90 sloc)  3.632 kb
 
 <body>
     <div id='content'>
-    <h1 id='title'> We are doing it live! </h1>
+    <h1 id='title'>The Ham Sandwiches</h1>
     <div class ='info'>
         This web app creates playlists of live songs for Spotify using the Echo Nest Playlist API.  For more
         information about how to create live playlists see this post: <a href="">Creating Live Playlists
@@ -45,19 +29,25 @@ RawBlameHistory     104 lines (90 sloc)  3.632 kb
 	    <option value="acoustic">Acoustic</option>
 	    <option value="christmas">Christmas</option>
 	  </select>
+	</span>
+	<span class='box3'>Amount of Songs:
+	  <input title="amount" type="text" size=10 id="amount" placeholder="Input Amount of Songs">
+	</span>
         <button value="go" id="go" name="go"  onclick="newArtist()"> Go </button>
     </div>
 
     <div id="info"> </div>
     <div id="all_results">
-        <div id='tracks'>
-            <!---<h2> The Playlist</h2>-->
-            <div id="results"> </div>
-        </div>
+      <div id='tracks'>
+        <!---<h2> The Playlist</h2>-->
+        <div id="results"> </div>
+      </div>
     </div>
-    <div id='footer'> 
-        Powered by <a href="http://the.echonest.com">The Echo Nest</a> and <a href="http://spotify.com">Spotify</a>. 
+
+    <div id='footer'>
+        Powered by <a href="http://the.echonest.com">The Echo Nest</a> and <a href="http://spotify.com">Spotify</a>.
     </div>
+
     </div>
 </body>
 
@@ -74,7 +64,7 @@ function fetchArtistPlaylist(artist,  wandering, variety) {
             'bucket': [ 'id:spotify', 'tracks'], 'limit' : true,
             'variety' : 1,
             'song_type': document.getElementById("dropdown").value,
-            'results': 30, 'type':'artist-radio',  }, 
+            'results': document.getElementById("amount").value, 'type':'artist-radio',  }, 
             function(data) {
                 info("");
                 $("#results").empty();
