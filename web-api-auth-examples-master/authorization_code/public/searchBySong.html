@@ -26,10 +26,15 @@
     
     <br>
     <div id='seed'>
-        <span class='box'>Seed artist:
-          <input title="Artist" type="text"  size=34 id="artist" 
-		 onkeydown="if (event.keyCode == 13) newArtist()" name="artist" placeholder='Input artist'/>
+        <span class='box'>Seed song:
+          <input title="Song" type="text"  size=34 id="song" 
+		 onkeydown="if (event.keyCode == 13) newSongId()" name="song" placeholder='Input song'/>
         </span>
+	</br>
+	<span class='whatever'> Seed artist:
+	  <input title="Artist" type="text" size=34 id="artist"
+		 onkeydown="if (event.keyCode == 13) newSongId()" name="artist" placeholder="Input artist (optional)" value=""/>
+	</span>
 	</br>
 	<span class='box2'>Type:
 	  <select id="dropdown">
@@ -41,10 +46,10 @@
 	</span>
 	</br>
 	<span class='box3'>Amount of Songs:
-	  <input title="amount" type="text" size=15 id="amount" placeholder="less than 90!">
+	  <input title="amount" type="text" size=15 id="amount" placeholder="less than 90!" onkeydown="if (event.keyCode == 13) newSongId()">
 	</span>
 	</br>
-        <button value="go" id="go" name="go"  onclick="newArtist()"> Go </button>
+        <button value="go" id="go" name="go"  onclick="newSongId()"> Go </button>
     </div>
     
     <div id="info"> </div>
@@ -71,11 +76,11 @@ function fetchSongPlaylist(song,  wandering, variety) {
     var url = host + 'api/v4/playlist/static?api_key=' + apiKey + '&callback=?';
     $("#all_results").hide();
     info("Creating the playlist ...");
-    $.getJSON(url, { 'song_id': artist, 'format':'jsonp', 
+    $.getJSON(url, { 'song_id': song, 'format':'jsonp', 
             'bucket': [ 'id:spotify', 'tracks'], 'limit' : true,
             'variety' : 1,
             'song_type': document.getElementById("dropdown").value,
-            'results': document.getElementById("amount").value, 'type':'artist-radio',  }, 
+            'results': document.getElementById("amount").value, 'type':'song-radio',  }, 
             function(data) {
                 info("");
                 $("#results").empty();
@@ -91,7 +96,7 @@ function fetchSongPlaylist(song,  wandering, variety) {
                     }
 					console.log(tracks);
                     var tembed = embed.replace('TRACKS', tracks);
-                    tembed = tembed.replace('PREFEREDTITLE', artist + ' playlist');
+                    tembed = tembed.replace('PREFEREDTITLE', song + ' playlist');
                     var li = $("<span>").html(tembed);
                     $("#results").append(li);
                 }
@@ -99,17 +104,19 @@ function fetchSongPlaylist(song,  wandering, variety) {
 }
 
 function newSongId() {
-    var song = $("#artist").val();
-	var url = host + 'api/v4/song/search?api_key=' + apiKey + '&callback=?';
+    var song = $("#song").val();
+    var artist = $("#artist").val();
+    var url = host + 'api/v4/song/search?api_key=' + apiKey + '&callback=?';
     $("#all_results").hide();
     info("Creating the playlist ...");
-    $.getJSON(url, { 'title': song, 'results': '1', 'format':'jsonp'}, 
+    if (artist != "") {
+         $.getJSON(url, { 'title': song, 'results': '1', 'format':'jsonp', 'artist':artist}, 
             function(data) {
                 info("");
                 $("#results").empty();
                 if (! ('songs' in data.response)) {
 					console.log("EMPTY");
-                    info("Can't find that artist");
+                    info("Can't find that song");
                 } else {
                     $("#all_results").show();
                     var track = data.response.songs[0].id;
@@ -130,6 +137,35 @@ function newSongId() {
 					fetchSongPlaylist(track, false, .2);
                }
             });
+    } else {
+         $.getJSON(url, { 'title': song, 'results': '1', 'format':'jsonp'}, 
+            function(data) {
+                info("");
+                $("#results").empty();
+                if (! ('songs' in data.response)) {
+					console.log("EMPTY");
+                    info("Can't find that song");
+                } else {
+                    $("#all_results").show();
+                    var track = data.response.songs[0].id;
+					console.log("RESULTS");
+					console.log("track:" +track);
+					/*
+                    for (var i = 0; i < data.response.songs.length; i++) {
+                        var song = data.response.songs[i];
+                        var tid = song.tracks[0].foreign_id.replace('spotify:track:', '');
+                        tracks = tracks + tid + ',';
+                    }
+					console.log(tracks);
+                    var tembed = embed.replace('TRACKS', tracks);
+                    tembed = tembed.replace('PREFEREDTITLE', artist + ' playlist');
+                    var li = $("<span>").html(tembed);
+                    $("#results").append(li);*/
+					song = track;
+					fetchSongPlaylist(track, false, .2);
+               }
+            });
+    }
 //	console.log("song: "+song);
     
 }
