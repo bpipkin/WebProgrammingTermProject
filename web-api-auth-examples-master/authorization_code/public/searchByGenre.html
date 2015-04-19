@@ -1,1 +1,119 @@
 
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>The Ham Sandwiches</title>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
+    <script type="text/javascript" src="../common/get_key_with_callback.js"></script>
+    <link type="text/css" href="live_styles.css" rel="stylesheet" />
+  </head>
+
+<body>
+  <div id='content'>
+
+    <div id="header">
+      <a href="searchByArtist.html">Search by Artist</a>
+      <a href="searchByGenre.html">Search by Genre</a>
+      <a href="searchBySong.html">Search by Song</a>
+    </div>
+
+    <h1 id='title'><a href="frontPage.html">The Ham Sandwiches</a></h1>
+    <div class ='info'>
+      This web app creates playlists of live songs for Spotify using the Echo Nest Playlist API.  For more
+      information about how to create live playlists see this post: <a href="">Creating Live Playlists
+        with the Echo Nest API </a>.
+    </div>
+    
+    <br>
+    <div id='seed'>
+        <span class='box'>Seed genre:
+          <input title="Genre" type="text"  size=34 id="genre" 
+		  onkeydown="if (event.keyCode == 13) newGenre()" name="genre" placeholder='Input genre'/>
+        </span>
+	</br>
+	<span class='box2'>Type:
+	  <select id="dropdown">
+	    <option value="studio">Studio</option>
+	    <option value="live">Live</option>
+	    <option value="acoustic">Acoustic</option>
+	    <option value="christmas">Christmas</option>
+	  </select>
+	</span>
+	</br>
+	<span class='box3'>Amount of Songs:
+	    <input title="amount" type="text" size=15 id="amount" placeholder="less than 90!" onkeydown="if (event.keyCode == 13) newGenre()">
+	</span>
+	</br>
+        <button value="go" id="go" name="go"  onclick="newGenre()"> Go </button>
+    </div>
+    
+    <div id="info"> </div>
+    <div id="all_results">
+      <div id='tracks'>
+        <!---<h2> The Playlist</h2>-->
+        <div id="results"> </div>
+      </div>
+    </div>
+    
+    <div id='footer'>
+      Powered by <a href="http://the.echonest.com">The Echo Nest</a> and <a href="http://spotify.com">Spotify</a>.
+    </div>
+    
+  </div>
+</body>
+
+<script type="text/javascript">
+jQuery.ajaxSettings.traditional = true; 
+var host = 'http://developer.echonest.com/';
+var apiKey = 'ODVB8M8JI0RNIBTIQ';
+var embed = '<iframe src="https://embed.spotify.com/?uri=spotify:trackset:PREFEREDTITLE:TRACKS" style="width:640px; height:520px;" frameborder="0" allowtransparency="true"></iframe>';
+function fetchGenrePlaylist(genre,  wandering, variety) {
+    var url = host + 'api/v4/playlist/static?api_key=' + apiKey + '&callback=?';
+    $("#all_results").hide();
+    info("Creating the playlist ...");
+    $.getJSON(url, { 'genre': genre, 'format':'jsonp', 
+            'bucket': [ 'id:spotify', 'tracks'], 'limit' : true,
+            'variety' : 1,
+            'song_type': document.getElementById("dropdown").value,
+            'results': document.getElementById("amount").value, 'type':'genre-radio',  }, 
+            function(data) {
+                info("");
+                $("#results").empty();
+                if (! ('songs' in data.response)) {
+                    info("Can't find that genre");
+                } else {
+                    $("#all_results").show();
+                    var tracks = "";
+                    for (var i = 0; i < data.response.songs.length; i++) {
+                        var song = data.response.songs[i];
+                        var tid = song.tracks[0].foreign_id.replace('spotify:track:', '');
+                        tracks = tracks + tid + ',';
+                    }
+					console.log(tracks);
+                    var tembed = embed.replace('TRACKS', tracks);
+                    tembed = tembed.replace('PREFEREDTITLE', genre + ' playlist');
+                    var li = $("<span>").html(tembed);
+                    $("#results").append(li);
+                }
+            });
+}
+function newGenre() {
+    var genre = $("#genre").val();
+    fetchGenrePlaylist(genre, false, .2);
+}
+function info(txt) {
+    $("#info").text(txt);
+}
+$(document).ready(function() {
+    // fetchApiKey will fetch the Echo Nest demo key for demos
+    // hosted on The Echo Nest, otherwise it fetch an empty key
+    fetchApiKey( function(api_key, isLoggedIn) {
+        if (!api_key) {
+            api_key = 'ODVB8M8JI0RNIBTIQ';
+        }
+        apiKey = api_key;
+        $("#all_results").hide();
+    });
+});
+</script>
+</html>
