@@ -44,7 +44,7 @@
 	  <input title="amount" type="text" size=15 id="amount" placeholder="less than 90!">
 	</span>
 	</br>
-        <button value="go" id="go" name="go"  onclick="newArtist()"> Go </button>
+        <button value="go" id="go" name="go"  onclick="newSongId()"> Go </button>
     </div>
     
     <div id="info"> </div>
@@ -71,11 +71,11 @@ function fetchSongPlaylist(song,  wandering, variety) {
     var url = host + 'api/v4/playlist/static?api_key=' + apiKey + '&callback=?';
     $("#all_results").hide();
     info("Creating the playlist ...");
-    $.getJSON(url, { 'song_id': artist, 'format':'jsonp', 
+    $.getJSON(url, { 'song_id': song, 'format':'jsonp', 
             'bucket': [ 'id:spotify', 'tracks'], 'limit' : true,
             'variety' : 1,
             'song_type': document.getElementById("dropdown").value,
-            'results': document.getElementById("amount").value, 'type':'artist-radio',  }, 
+            'results': document.getElementById("amount").value, 'type':'song-radio', 'adventurousness' : variety  }, 
             function(data) {
                 info("");
                 $("#results").empty();
@@ -113,25 +113,9 @@ function newSongId() {
                 } else {
                     $("#all_results").show();
                     var track = data.response.songs[0].id;
-					console.log("RESULTS");
-					console.log("track:" +track);
-					/*
-                    for (var i = 0; i < data.response.songs.length; i++) {
-                        var song = data.response.songs[i];
-                        var tid = song.tracks[0].foreign_id.replace('spotify:track:', '');
-                        tracks = tracks + tid + ',';
-                    }
-					console.log(tracks);
-                    var tembed = embed.replace('TRACKS', tracks);
-                    tembed = tembed.replace('PREFEREDTITLE', artist + ' playlist');
-                    var li = $("<span>").html(tembed);
-                    $("#results").append(li);*/
-					song = track;
-					fetchSongPlaylist(track, false, .2);
+					fetchSongPlaylist(track, false, 0);
                }
-            });
-//	console.log("song: "+song);
-    
+            });    
 }
 function info(txt) {
     $("#info").text(txt);
