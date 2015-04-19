@@ -34,10 +34,17 @@ RawBlameHistory     104 lines (90 sloc)  3.632 kb
 
     <br>
     <div id='seed'>
-        <span class='box'> Seed artist:
+        <span class='box'>Seed artist:
             <input title="Artist" type="text"  size=34 id="artist" 
-            onkeydown="if (event.keyCode == 13) newArtist()" name="artist" value='Katy Perry'/>
+            onkeydown="if (event.keyCode == 13) newArtist()" name="artist" placeholder='Input artist'/>
         </span>
+	<span class='box2'>Type:
+	  <select id="dropdown">
+	    <option value="studio">Studio</option>
+	    <option value="live">Live</option>
+	    <option value="acoustic">Acoustic</option>
+	    <option value="christmas">Christmas</option>
+	  </select>
         <button value="go" id="go" name="go"  onclick="newArtist()"> Go </button>
     </div>
 
@@ -56,7 +63,7 @@ RawBlameHistory     104 lines (90 sloc)  3.632 kb
 
 <script type="text/javascript">
 jQuery.ajaxSettings.traditional = true; 
-var host = 'http://developer.echonest.com/'
+var host = 'http://developer.echonest.com/';
 var apiKey = 'ODVB8M8JI0RNIBTIQ';
 var embed = '<iframe src="https://embed.spotify.com/?uri=spotify:trackset:PREFEREDTITLE:TRACKS" style="width:640px; height:520px;" frameborder="0" allowtransparency="true"></iframe>';
 function fetchArtistPlaylist(artist,  wandering, variety) {
@@ -66,7 +73,7 @@ function fetchArtistPlaylist(artist,  wandering, variety) {
     $.getJSON(url, { 'artist': artist, 'format':'jsonp', 
             'bucket': [ 'id:spotify', 'tracks'], 'limit' : true,
             'variety' : 1,
-            'song_type': 'live',
+            'song_type': document.getElementById("dropdown").value,
             'results': 30, 'type':'artist-radio',  }, 
             function(data) {
                 info("");
