@@ -74,3 +74,16 @@ h2 {
     text-align:center;
     font-size:12px;
 }
+button {
+  background: #649000;
+  width: 100px;
+  height: 30px;
+  border-radius: 10px;
+  border: 0;
+  text-transform: uppercase;
+  font-size: 0.8em;
+  font-weight: bold;
+}
+button:hover {
+  background: #82BD03;
+}
