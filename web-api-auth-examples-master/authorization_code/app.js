@@ -14,7 +14,7 @@ var cookieParser = require('cookie-parser');
 
 var client_id = '118205ab6cd7465d84a0ab3c64a8e439'; // Your client id
 var client_secret = '66c645384fc0425db4502f2fad015af8'; // Your client secret
-var redirect_uri = 'http://localhost:8888/callback'; // Your redirect uri
+var redirect_uri = 'http://localhost:1337/callback'; // Your redirect uri
 
 /**
  * Generates a random string containing numbers and letters
@@ -34,13 +34,14 @@ var generateRandomString = function(length) {
 var stateKey = 'spotify_auth_state';
 
 var app = express();
-
+//Tells the app where to find the webpage
 app.use(express.static(__dirname + '/public'))
    .use(cookieParser());
-
+//Gets login
 app.get('/login', function(req, res) {
-
+	console.log("login");
   var state = generateRandomString(16);
+  console.log("CREATE STATE: "+state);
   res.cookie(stateKey, state);
 
   // your application requests authorization
@@ -62,6 +63,7 @@ app.get('/callback', function(req, res) {
 
   var code = req.query.code || null;
   var state = req.query.state || null;
+  console.log("state: " +state);
   var storedState = req.cookies ? req.cookies[stateKey] : null;
 
   if (state === null || state !== storedState) {
@@ -89,7 +91,7 @@ app.get('/callback', function(req, res) {
 
         var access_token = body.access_token,
             refresh_token = body.refresh_token;
-
+		//HERE IS THE QUERY YOU MORON:  Returns JSON
         var options = {
           url: 'https://api.spotify.com/v1/me',
           headers: { 'Authorization': 'Bearer ' + access_token },
@@ -141,5 +143,6 @@ app.get('/refresh_token', function(req, res) {
   });
 });
 
-console.log('Listening on 8888');
-app.listen(8888);
+console.log('Listening on 1337');
+app.listen(1337, '127.0.0.1');
+//app.listen(8888);
