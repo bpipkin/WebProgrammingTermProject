@@ -64,7 +64,7 @@ function fetchArtistPlaylist(artist,  wandering, variety) {
             'bucket': [ 'id:spotify', 'tracks'], 'limit' : true,
             'variety' : 1,
             'song_type': document.getElementById("dropdown").value,
-            'results': document.getElementById("amount").value, 'type':'artist-radio',  }, 
+            'results': document.getElementById("amount").value, 'type':'artist-radio'},
             function(data) {
                 info("");
                 $("#results").empty();
@@ -85,6 +85,7 @@ function fetchArtistPlaylist(artist,  wandering, variety) {
                     $("#results").append(li);
                 }
             });
+
 }
 function newArtist() {
     var artist = $("#artist").val();
