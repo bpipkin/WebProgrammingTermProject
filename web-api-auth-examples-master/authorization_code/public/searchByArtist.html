@@ -41,7 +41,7 @@
 	</span>
 	</br>
 	<span class='box3'>Amount of Songs:
-	  <input title="amount" type="text" size=15 id="amount" placeholder="less than 90!">
+	  <input title="amount" type="text" size=15 id="amount" placeholder="less than 90!" onkeydown="if (event.keyCode == 13) newArtist()">
 	</span>
 	</br>
         <button value="go" id="go" name="go"  onclick="newArtist()"> Go </button>
@@ -82,6 +82,7 @@ function fetchArtistPlaylist(artist,  wandering, variety) {
                 if (! ('songs' in data.response)) {
                     info("Can't find that artist");
                 } else {
+                    $.post("savePlaylist.php", {pName:"test",pOwner:"ben"}, function(result) {alert(result);});
                     $("#all_results").show();
                     var tracks = "";
                     for (var i = 0; i < data.response.songs.length; i++) {
