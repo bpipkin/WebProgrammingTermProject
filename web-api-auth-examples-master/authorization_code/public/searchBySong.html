@@ -26,9 +26,15 @@
     
     <br>
     <div id='seed'>
+    	<span class='box'>Seed song:
+          <input title="Song" type="text" size=34 id="song"
+                 onkeydown="if (event.keyCode == 13) newSongId()" name="song"
+                 placeholder='Input song name'/>
+        </span>
+        </br>
         <span class='box'>Seed artist:
           <input title="Artist" type="text"  size=34 id="artist" 
-		 onkeydown="if (event.keyCode == 13) newArtist()" name="artist" placeholder='Input artist'/>
+		 onkeydown="if (event.keyCode == 13) newSongId()" name="artist" placeholder='Input artist'/>
         </span>
 	</br>
 	<span class='box2'>Type:
@@ -41,7 +47,7 @@
 	</span>
 	</br>
 	<span class='box3'>Amount of Songs:
-	  <input title="amount" type="text" size=15 id="amount" placeholder="less than 90!">
+	  <input title="amount" type="text" size=15 id="amount" placeholder="less than 90!" onkeydown="if (event.keyCode == 13) newSongId()">
 	</span>
 	</br>
         <button value="go" id="go" name="go"  onclick="newSongId()"> Go </button>
@@ -99,11 +105,12 @@ function fetchSongPlaylist(song,  wandering, variety) {
 }
 
 function newSongId() {
-    var song = $("#artist").val();
+    var song = $("#song").val();
+    var artist = $("#artist").val();
 	var url = host + 'api/v4/song/search?api_key=' + apiKey + '&callback=?';
     $("#all_results").hide();
     info("Creating the playlist ...");
-    $.getJSON(url, { 'title': song, 'results': '1', 'format':'jsonp'}, 
+    $.getJSON(url, { 'title': song, 'artist':artist, 'results': '1', 'format':'jsonp'}, 
             function(data) {
                 info("");
                 $("#results").empty();
@@ -113,7 +120,7 @@ function newSongId() {
                 } else {
                     $("#all_results").show();
                     var track = data.response.songs[0].id;
-					fetchSongPlaylist(track, false, 0);
+			fetchSongPlaylist(track, false, 0);
                }
             });    
 }
