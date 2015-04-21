@@ -17,7 +17,8 @@ body {
 
 #content {
     background:#D4D0BF;
-    color:#A4A4A4;
+    color:#939393;
+	font-size:16px;
     margin-top:20px;
     margin-left:20px;
     margin-right:20px;
@@ -87,9 +88,10 @@ button, #sub {
   text-transform: uppercase;
   font-size: 0.8em;
   font-weight: bold;
+  color:#F2EEEE;
 }
 button:hover {
-
+  color:#000000;
   background: #82BD03;
 }
 
@@ -97,6 +99,15 @@ button:hover {
 	border-radius:15px;
 	display:inline-block;
 	background: #649000;
-	width:200px;
-	height:30px;
+	width:150px;
+	height:30px;	
+}
+.menuitem:hover{
+	background: #82BD03;	
+}
+.menuitem a{
+	
+	margin-left:7px;
+	margin-top:15px;	
+}
 	
