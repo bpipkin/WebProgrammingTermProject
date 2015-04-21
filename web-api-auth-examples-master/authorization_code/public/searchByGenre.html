@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>The Ham Sandwiches</title>
+    <title>Playlist by Genre</title>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
     <script type="text/javascript" src="../common/get_key_with_callback.js"></script>
     <link type="text/css" href="live_styles.css" rel="stylesheet" />
@@ -12,17 +12,15 @@
   <div id='content'>
 
     <div id="header">
-       <div class="menuitem"><a href="searchByArtist.html">Search by Artist</a></div>
-      <div class="menuitem"><a href="searchByGenre.html">Search by Genre</a></div>
-      <div class="menuitem"><a href="searchBySong.html">Search by Song</a></div>
+      <div class="menuitem"><a href="searchByArtist.html">Playlist by Artist</a></div>
+      <div class="menuitem"><a href="searchByGenre.html">Playlist by Genre</a></div>
+      <div class="menuitem"><a href="searchBySong.html">Playlist by Song</a></div>
       <div class="menuitem"><a href="Loadplaylists.html">My Playlists</a></div>
     </div>
 
-    <h1 id='title'><a href="frontPage.html">The Ham Sandwiches</a></h1>
+    <h1 id='title'>Playlist by Genre</h1>
     <div class ='info'>
-      This web app creates playlists of live songs for Spotify using the Echo Nest Playlist API.  For more
-      information about how to create live playlists see this post: <a href="">Creating Live Playlists
-        with the Echo Nest API </a>.
+      This app creates a randomized playlist based on your favorite genre.  Simply enter your favorite genre, tell us how many songs you want, and we'll handle the rest.
     </div>
     
     <br>
@@ -32,7 +30,7 @@
 		  onkeydown="if (event.keyCode == 13) newGenre()" name="genre" placeholder='Input genre'/>
         </span>
 	</br>
-	<span class='box2'>Type:
+	<span class='box'>Type:
 	  <select id="dropdown">
 	    <option value="studio">Studio</option>
 	    <option value="live">Live</option>
@@ -41,16 +39,15 @@
 	  </select>
 	</span>
 	</br>
-	<span class='box3'>Amount of Songs:
+	<span class='box'>Amount of Songs:
 	    <input title="amount" type="text" size=15 id="amount" placeholder="less than 90!" onkeydown="if (event.keyCode == 13) newGenre()">
 	</span>
 	</br>
-	<span>Name playlist:
-          <input title="namePlaylist"  type="text" size=15 id="name" placeholder="name of your pl\
-aylist" onkeydown="if (event.keyCode == 13) newGenre()">
+	<span class='box'>Name playlist:
+          <input title="namePlaylist"  type="text" size=25 id="name" placeholder="name of your playlist" onkeydown="if (event.keyCode == 13) newGenre()">
         </span>
-        </br>
-        <button value="go" id="go" name="go"  onclick="newGenre()"> Go </button>
+        <br/><br/>
+        <button value="go" id="go" name="go"  onclick="newGenre()"> CREATE </button>
     </div>
     
     <div id="info"> </div>

@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>The Ham Sandwiches</title>
+    <title>Playlist by Song</title>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
     <script type="text/javascript" src="../common/get_key_with_callback.js"></script>
     <link type="text/css" href="live_styles.css" rel="stylesheet" />
@@ -12,15 +12,15 @@
   <div id='content'>
 
     <div id="header">
-       <div class="menuitem"><a href="searchByArtist.html">Search by Artist</a></div>
-      <div class="menuitem"><a href="searchByGenre.html">Search by Genre</a></div>
-      <div class="menuitem"><a href="searchBySong.html">Search by Song</a></div>
+       <div class="menuitem"><a href="searchByArtist.html">Playlist by Artist</a></div>
+      <div class="menuitem"><a href="searchByGenre.html">Playlist by Genre</a></div>
+      <div class="menuitem"><a href="searchBySong.html">Playlist by Song</a></div>
       <div class="menuitem"><a href="Loadplaylists.html">My Playlists</a></div>
     </div>
 
-    
-    <div class ='info'><br/><h1>Search by Song</h1><br/>
-      Create a random playlist based on a song.  For added accuracy, you can also include the artist.  Make sure you choose a memorable name for your playlist so that you can find it later.
+    <h1>Playlist by Song</h1>
+    <div class ='info'>
+      This app creates a randomized playlist based on your favorite song.  Simply enter your favorite song, the artist that made it, how many songs you want, and we'll handle the rest.
     </div>
     
     <br>
@@ -36,7 +36,7 @@
 		 onkeydown="if (event.keyCode == 13) newSongId()" name="artist" placeholder='Input artist'/>
         </span>
 	</br>
-	<span class='box2'>Type:
+	<span class='box'>Type:
 	  <select id="dropdown">
 	    <option value="studio">Studio</option>
 	    <option value="live">Live</option>
@@ -45,12 +45,12 @@
 	  </select>
 	</span>
 	</br>
-	<span class='box3'>Amount of Songs:
+	<span class='box'>Amount of Songs:
 	  <input title="amount" type="text" size=15 id="amount" placeholder="less than 90!" onkeydown="if (event.keyCode == 13) newSongId()">
 	</span>
 	</br>
-	<span>Name playlist:
-          <input title="namePlaylist" type="text" size=15 id="name" placeholder="name of your playlist" onkeydown="if (event.keyCode == 13) newArtist()">
+	<span class='box'>Name playlist:
+          <input title="namePlaylist" type="text" size=25 id="name" placeholder="name of your playlist" onkeydown="if (event.keyCode == 13) newArtist()">
         </span>
 	  <br/><br/>
         <button value="go" id="go" name="go"  onclick="newSongId()"> Create! </button>

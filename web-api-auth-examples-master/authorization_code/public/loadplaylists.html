@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Untitled Document</title>
+<title>My Playlists</title>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
 <link type="text/css" href="live_styles.css" rel="stylesheet" />
 </head>
@@ -17,22 +17,21 @@
       <div class="menuitem"><a href="Loadplaylists.html">My Playlists</a></div>
     </div>
 
-    <h1 id='title'><a href="frontPage.html">The Ham Sandwiches</a></h1>
+    <h1 id='title'>My Playlists</h1>
     <div class ='info'>
-      This web app creates playlists of live songs for Spotify using the Echo Nest Playlist API.  For more
-      information about how to create live playlists see this post: <a href="">Creating Live Playlists
-        with the Echo Nest API </a>.
+      Reload any playlist you have generated.  Simply pick the playlist name from the dropdown menu and hit LOAD.  The playlist will reopen exactly the way you left it.
     </div>
     
     <br>
     <div id='seed'>
         
-	<span class='box2'>Type:
+	<span class='box2'>Playlist:
 	  <select id="dropdown">
 			
 	  </select>
 	</span>
-    <button value="go" id="go" name="go"  onclick="loadList()"> Go </button>
+    <button value="go" id="go" name="go"  onclick="loadList()"> LOAD </button>
+   <!-- <button value="go" id="go" name="go"  onclick="deleteList()"> DELETE </button> -->
     </div>
     
     <div id="info"> </div>
@@ -62,6 +61,7 @@ var embed = '<iframe src="https://embed.spotify.com/?uri=spotify:trackset:PREFER
    
   	function loadList(){
 		var tracks = ""; 
+		$("#results").empty();
 		var playlistName = document.getElementById("dropdown").value;
 		$.post("getPlaylistTracks.php", {user:"ben", pname:playlistName}, function(response){
 			tracks = response;
@@ -73,6 +73,11 @@ var embed = '<iframe src="https://embed.spotify.com/?uri=spotify:trackset:PREFER
 		});
 		console.log(tracks);
 		
+	}
+	function deleteList(){
+		var playlistName = document.getElementById("dropdown").value;
+		$.post("getPlaylistTracks.php", {user:"ben", pname:playlistName}, function(response){console.log(response);});
+		getPlaylists();
 	}
   </script>
 </body>
