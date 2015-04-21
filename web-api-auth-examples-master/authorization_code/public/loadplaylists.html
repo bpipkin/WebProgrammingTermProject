@@ -7,7 +7,7 @@
 <link type="text/css" href="live_styles.css" rel="stylesheet" />
 </head>
 
-<body>
+<body onLoad="getPlaylists()">
 <div id='content'>
 
     <div id="header">
@@ -28,10 +28,7 @@
         
 	<span class='box2'>Type:
 	  <select id="dropdown">
-	    <option value="studio">Studio</option>
-	    <option value="live">Live</option>
-	    <option value="acoustic">Acoustic</option>
-	    <option value="christmas">Christmas</option>
+			
 	  </select>
 	</span>
     <button value="go" id="go" name="go"  onclick="loadList()"> Go </button>
@@ -56,9 +53,16 @@
 var apiKey = 'ODVB8M8JI0RNIBTIQ';
 var embed = '<iframe src="https://embed.spotify.com/?uri=spotify:trackset:PREFEREDTITLE:TRACKS" style="width:640px; height:520px;" frameborder="0" allowtransparency="true"></iframe>';
    $("#all_results").hide();
+   	function getPlaylists(){
+		$.post("getPlaylistNames.php", {user:"ben"}, function(response){
+			document.getElementById("dropdown").innerHTML = response;	
+		});
+	}
+   
   	function loadList(){
 		var tracks = ""; 
-		$.post("getPlaylistTracks.php", {user:"ben"}, function(response){
+		var playlistName = document.getElementById("dropdown").value;
+		$.post("getPlaylistTracks.php", {user:"ben", pname:playlistName}, function(response){
 			tracks = response;
 			 $("#all_results").show();
 		var tembed = embed.replace('TRACKS', tracks);
