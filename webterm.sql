@@ -40,30 +40,6 @@ LOCK TABLES `playlist` WRITE;
 /*!40000 ALTER TABLE `playlist` ENABLE KEYS */;
 UNLOCK TABLES;
 
---
--- Table structure for table `song`
---
-
-DROP TABLE IF EXISTS `song`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `song` (
-  `id` int(11) NOT NULL,
-  `title` varchar(20) NOT NULL,
-  `artist` varchar(20) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `song`
---
-
-LOCK TABLES `song` WRITE;
-/*!40000 ALTER TABLE `song` DISABLE KEYS */;
-/*!40000 ALTER TABLE `song` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `track`
@@ -73,7 +49,7 @@ DROP TABLE IF EXISTS `track`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `track` (
-  `sid` int(11) NOT NULL,
+  `sid` varchar(25) NOT NULL,
   `pname` varchar(20) NOT NULL,
   `powner` varchar(20) NOT NULL,
   `pos` int(11) NOT NULL,
@@ -94,6 +70,32 @@ LOCK TABLES `track` WRITE;
 /*!40000 ALTER TABLE `track` DISABLE KEYS */;
 /*!40000 ALTER TABLE `track` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `song`
+--
+
+DROP TABLE IF EXISTS `song`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `song` (
+  `id` varchar(25) NOT NULL,
+  `title` varchar(20) NOT NULL,
+  `artist` varchar(20) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `song`
+--
+
+LOCK TABLES `song` WRITE;
+/*!40000 ALTER TABLE `song` DISABLE KEYS */;
+/*!40000 ALTER TABLE `song` ENABLE KEYS */;
+UNLOCK TABLES;
+
 
 --
 -- Table structure for table `user`
