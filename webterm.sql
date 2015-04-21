@@ -57,7 +57,7 @@ CREATE TABLE `track` (
   KEY `playlistName_idx` (`pname`),
   KEY `oName_idx` (`powner`),
   CONSTRAINT `oName` FOREIGN KEY (`powner`) REFERENCES `playlist` (`ownername`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `playlistName` FOREIGN KEY (`pname`) REFERENCES `playlist` (`name`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  CONSTRAINT `playlistName` FOREIGN KEY (`pname`) REFERENCES `playlist` (`name`) ON DELETE CASCADE ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
