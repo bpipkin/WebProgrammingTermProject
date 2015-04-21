@@ -86,7 +86,7 @@ function fetchArtistPlaylist(artist,  wandering, variety) {
                 if (! ('songs' in data.response)) {
                     info("Can't find that artist");
                 } else {
-                    $.post("savePlaylist.php",{pName:$("name").val()},function(result){});
+                    $.post("savePlaylist.php",{pName:$("#name").val()},function(result){});
                     $("#all_results").show();
                     var tracks = "";
                     for (var i = 0; i < data.response.songs.length; i++) {

@@ -1,6 +1,6 @@
 <?php
 
-        $db = new PDO('mysql:host=localhost;port=8889;dbname=webterm','root','root');
+        $db = new PDO('mysql:host=localhost;port=3306;dbname=webterm','root','');
 
         $pName = $_POST["pName"];
         $sid = $_POST["sid"];
