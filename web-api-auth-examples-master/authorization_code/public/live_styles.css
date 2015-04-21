@@ -80,6 +80,9 @@ span {
     text-align:center;
     font-size:12px;
 }
+#footer a{
+	color:#5C8FB8;	
+}
 button, #sub {
   background: #649000;
   width: 100px;
