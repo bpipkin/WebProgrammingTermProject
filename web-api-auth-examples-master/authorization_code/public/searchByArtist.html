@@ -44,6 +44,10 @@
 	  <input title="amount" type="text" size=15 id="amount" placeholder="less than 90!" onkeydown="if (event.keyCode == 13) newArtist()">
 	</span>
 	</br>
+	<span>Name playlist:
+	  <input title="namePlaylist" type="text" size=15 id="name" placeholder="name of your playlist" onkeydown="if (event.keyCode == 13) newArtist()">
+	</span>
+	</br>
         <button value="go" id="go" name="go"  onclick="newArtist()"> Go </button>
     </div>
     
@@ -82,7 +86,7 @@ function fetchArtistPlaylist(artist,  wandering, variety) {
                 if (! ('songs' in data.response)) {
                     info("Can't find that artist");
                 } else {
-                    $.post("savePlaylist.php", {pName:"test",pOwner:"ben"}, function(result) {alert(result);});
+                    $.post("savePlaylist.php",{pName:$("name").val()},function(result){});
                     $("#all_results").show();
                     var tracks = "";
                     for (var i = 0; i < data.response.songs.length; i++) {
@@ -95,9 +99,11 @@ function fetchArtistPlaylist(artist,  wandering, variety) {
                     tembed = tembed.replace('PREFEREDTITLE', artist + ' playlist');
                     var li = $("<span>").html(tembed);
                     $("#results").append(li);
+
                 }
             });
 }
+
 function newArtist() {
     var artist = $("#artist").val();
     fetchArtistPlaylist(artist, false, .2);
