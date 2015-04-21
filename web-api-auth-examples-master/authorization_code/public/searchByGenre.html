@@ -44,6 +44,11 @@
 	    <input title="amount" type="text" size=15 id="amount" placeholder="less than 90!" onkeydown="if (event.keyCode == 13) newGenre()">
 	</span>
 	</br>
+	<span>Name playlist:
+          <input title="namePlaylist"  type="text" size=15 id="name" placeholder="name of your pl\
+aylist" onkeydown="if (event.keyCode == 13) newGenre()">
+        </span>
+        </br>
         <button value="go" id="go" name="go"  onclick="newGenre()"> Go </button>
     </div>
     
@@ -82,11 +87,13 @@ function fetchGenrePlaylist(genre,  wandering, variety) {
                 if (! ('songs' in data.response)) {
                     info("Can't find that genre");
                 } else {
+               	    $.post("savePlaylist.php",{pName:$("#name").val()},function(result){});
                     $("#all_results").show();
                     var tracks = "";
                     for (var i = 0; i < data.response.songs.length; i++) {
                         var song = data.response.songs[i];
                         var tid = song.tracks[0].foreign_id.replace('spotify:track:', '');
+                        $.post("saveTrack.php",{sid:tid,pName:$("#name").val(),pos:i},function(result){});
                         tracks = tracks + tid + ',';
                     }
 					console.log(tracks);
