@@ -1,10 +1,11 @@
 <?php
 
-	   $db = new PDO('mysql:host=localhost;port=3306;dbname=webterm', 'root', 'databases');
+	   $db = new PDO('mysql:host=localhost;port=3306;dbname=webterm', 'root', '');
 	   //$pName = $_POST["pName"];
 	
 
-	   $sql = "INSERT INTO playlist (name, ownername) VALUES ("test","ben");//$_SESSION["username"])";
+	   $sql = "INSERT INTO playlist (name, ownername) VALUES (\"test\",\"ben\")";
+	   //$_SESSION["username"])";
 	   $db->query($sql);
 
 
