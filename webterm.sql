@@ -58,7 +58,6 @@ CREATE TABLE `track` (
   KEY `oName_idx` (`powner`),
   CONSTRAINT `oName` FOREIGN KEY (`powner`) REFERENCES `playlist` (`ownername`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `playlistName` FOREIGN KEY (`pname`) REFERENCES `playlist` (`name`) ON DELETE CASCADE ON UPDATE NO ACTION,
-  CONSTRAINT `songID` FOREIGN KEY (`sid`) REFERENCES `song` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -70,32 +69,6 @@ LOCK TABLES `track` WRITE;
 /*!40000 ALTER TABLE `track` DISABLE KEYS */;
 /*!40000 ALTER TABLE `track` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `song`
---
-
-DROP TABLE IF EXISTS `song`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `song` (
-  `id` varchar(25) NOT NULL,
-  `title` varchar(20) NOT NULL,
-  `artist` varchar(20) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `song`
---
-
-LOCK TABLES `song` WRITE;
-/*!40000 ALTER TABLE `song` DISABLE KEYS */;
-/*!40000 ALTER TABLE `song` ENABLE KEYS */;
-UNLOCK TABLES;
-
 
 --
 -- Table structure for table `user`
