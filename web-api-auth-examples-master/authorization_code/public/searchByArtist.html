@@ -92,6 +92,7 @@ function fetchArtistPlaylist(artist,  wandering, variety) {
                     for (var i = 0; i < data.response.songs.length; i++) {
                         var song = data.response.songs[i];
                         var tid = song.tracks[0].foreign_id.replace('spotify:track:', '');
+                        $.post("saveTrack.php",{sid:tid,pName:$("#name").val(),pos:i},function(result){});
                         tracks = tracks + tid + ',';
                     }
 					console.log(tracks);
